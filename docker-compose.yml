@@ -1,0 +1,20 @@
+﻿services:
+  mongo:
+    image: mongo:6
+    container_name: mongo_container
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${MONGO_PORT}:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - mongo_network
+
+volumes:
+  mongo_data:
+
+networks:
+  mongo_network:
+    driver: bridge
