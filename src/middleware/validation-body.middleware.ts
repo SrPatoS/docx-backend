@@ -10,13 +10,15 @@ export const validationBodyMiddleware = (schema: z.ZodSchema) => {
       if (error instanceof ZodError) {
         const errorMessages = error.errors.map(err => `${err.message} ${err.path}`);
 
-        res.status(400).json({
+        res.status(400).send({
           message: "Erro de validação",
           errors: errorMessages,
         });
         return;
       }
-      next(error);
+
+      res.status(400).send(error);
+      return;
     }
   };
 };

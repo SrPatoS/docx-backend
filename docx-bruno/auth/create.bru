@@ -7,18 +7,22 @@ meta {
 post {
   url: http://{{host}}/user
   body: json
-  auth: none
+  auth: bearer
 }
 
 headers {
   api-key: {{api-key}}
 }
 
+auth:bearer {
+  token: {{token}}
+}
+
 body:json {
   {
     "name": "Vinicius",
-    "email": "vavizvini000@gmail.com",
+    "email": "vini@email.com",
     "password": "123456789",
-    "rule": ""
+    "rule": "collaborator"
   }
 }

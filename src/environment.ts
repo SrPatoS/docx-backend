@@ -5,4 +5,5 @@
   mongoUrl: process.env.MONGO_URL ?? '',
   mongoDb: process.env.MONGO_DB ?? '',
   bcryptSalt: parseInt(process.env.BCRYPT_SALT ?? '10'),
+  tokenSecret: process.env.TOKEN_SECRET ?? '',
 }

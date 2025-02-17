@@ -12,6 +12,14 @@ export class UserApiCreateUseCase {
       tag: data.rule
     }).exec();
 
+    const findUser = await userModel.findOne({
+      email: data.email
+    }).exec();
+
+    if (findUser) {
+      return { message: "error", errors: ['user already exists'] };
+    }
+
     if (!findRule) {
       return { message: "error", errors: ['rule not found'] };
     }
