@@ -17,13 +17,13 @@ export class AuthUseCase {
     }).exec();
 
     if (!findUser) {
-      return { message: "Password or email wrong", errors: [data.email] };
+      return { message: "Email ou senha errada!", errors: [data.email] };
     }
 
     const compareToken = await bcrypt.compare(data.password, findUser.password);
 
     if (!compareToken) {
-      return { message: "Password or email wrong", errors: [data.email] };
+      return { message: "Email ou senha errada!", errors: [data.email] };
     }
 
     const token = jwt.sign({ email: findUser.email }, environment.tokenSecret, {

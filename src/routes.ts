@@ -7,7 +7,7 @@ import { authMiddleware } from "@src/middleware/auth.middleware";
 export const routes = Router();
 
 routes.use(apiMiddleware);
-routes.use(authMiddleware);
-
-routes.use("/user", userApiRoutes);
 routes.use("/auth", authApiRoutes);
+
+routes.use(authMiddleware);
+routes.use("/user", userApiRoutes);
