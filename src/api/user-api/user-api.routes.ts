@@ -11,3 +11,5 @@ userApiRoutes.post("/",
   controller.create
 );
 
+userApiRoutes.get("/", controller.read);
+userApiRoutes.post("/last-cloud-downloaded", controller.getLastCloudDownloaded);

@@ -7,6 +7,7 @@ export interface IUser extends IModel {
   password: string;
   avatar?: string;
   rule: Schema.Types.ObjectId | string;
+  lastCloudDownloaded: Date;
 }
 
 export const userModel = model<IUser>("user", new Schema({
@@ -34,4 +35,9 @@ export const userModel = model<IUser>("user", new Schema({
     required: true,
     ref: "rule"
   },
+  lastCloudDownloaded: {
+    type: Date,
+    required: false,
+    default: null,
+  }
 }, modelConfig), "users")
