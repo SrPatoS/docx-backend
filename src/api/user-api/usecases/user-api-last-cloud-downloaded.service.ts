@@ -12,13 +12,13 @@ export class UserApiLastCloudDownloadedService {
       if (lastDate === currentDate) {
         download = false;
       }
-    } else {
-      await userModel.updateOne({ _id: userData._id }, {
-        $set: {
-          lastCloudDownloaded: date
-        }
-      }).exec();
     }
+
+    await userModel.updateOne({ _id: userData._id }, {
+      $set: {
+        lastCloudDownloaded: date
+      }
+    }).exec();
 
     return {
       errors: [],
