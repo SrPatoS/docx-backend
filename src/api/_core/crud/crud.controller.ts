@@ -5,7 +5,7 @@ import { Request, Response, Router } from "express";
 import { apiCreateResponseUtil } from "@src/api/_utils/api-create-response.util";
 
 export class CrudController {
-	private useCase: CrudUseCase<any>;
+	private useCase: CrudUseCase;
 
 	constructor(
 		private route: string,
@@ -31,7 +31,7 @@ export class CrudController {
 	}
 
 	protected async update(req: Request, res: Response) {
-		const result = await this.useCase.update(req.body, req.query.id ?? "");
+		const result = await this.useCase.update(req.body, req.query.id as string ?? "");
 		apiCreateResponseUtil(result, res);
 	}
 }
