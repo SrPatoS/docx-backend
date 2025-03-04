@@ -9,9 +9,7 @@ export interface ICompany extends IModel {
 }
 
 const userSchema = new Schema({
-    ...modelKeysDefault
-    ,
-    userId:{
+    _id:{
         type: mongoose.Types.ObjectId,
         required: true,
     }
