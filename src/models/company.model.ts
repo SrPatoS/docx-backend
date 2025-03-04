@@ -25,7 +25,7 @@ export const companyModel = model<ICompany>("company", new Schema({
     avatar: {
         type: String,
         required: false,
-        default: null,
+        default: "",
     },
     name: {
         type: String,
@@ -33,6 +33,7 @@ export const companyModel = model<ICompany>("company", new Schema({
     },
     cnpj: {
         type: String,
+        unique: true,
         required: true,
     },
     users: {

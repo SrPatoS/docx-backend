@@ -3,7 +3,6 @@ import { ApiResponse } from "@src/api/_types/api-response.type";
 import { z, ZodError } from "zod";
 import { formatZodErrorUtil } from "@src/api/_utils/format-zod-error.util";
 import { MongoUtils } from "@src/api/_utils/mongo.utils";
-import { it } from "node:test";
 
 export class CrudUseCase<T> {
 	constructor(
