@@ -5,6 +5,7 @@ export interface ICompany extends IModel {
     avatar?: string;
     name: string;
     cnpj: string;
+    users?: string[];
 }
 
 export const companyModel = model<ICompany>("company", new Schema({
@@ -22,4 +23,9 @@ export const companyModel = model<ICompany>("company", new Schema({
         type: String,
         required: true,
     },
+    users: {
+        type: [String],
+        required: false,
+        default: [],
+    }
 }, modelConfig), "companies")
