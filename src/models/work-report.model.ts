@@ -12,9 +12,9 @@ export interface IWorkReport extends IModel {
   companyId: Id;
   companyName: string;
   startWork: IReport;
-  endWork: IReport;
   startLunch: IReport;
   endLunch: IReport;
+  endWork: IReport;
 }
 
 const reportSchema = new Schema({

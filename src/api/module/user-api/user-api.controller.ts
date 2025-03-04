@@ -1,8 +1,8 @@
-﻿import { UserApiCreateUseCase, UserCreateData } from "@src/api/user-api/usecases/user-api-create.usecase";
-import { Request, Response } from "express";
+﻿import { Request, Response } from "express";
 import { apiCreateResponseUtil } from "@src/api/_utils/api-create-response.util";
 import { ApiResponse } from "@src/api/_types/api-response.type";
-import { UserApiLastCloudDownloadedService } from "@src/api/user-api/usecases/user-api-last-cloud-downloaded.service";
+import { UserApiCreateUseCase, UserCreateData } from "./usecases/user-api-create.usecase";
+import { UserApiLastCloudDownloadedService } from "./usecases/user-api-last-cloud-downloaded.service";
 
 export class UserApiController {
   async create(req: Request, res: Response) {
