@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 import { IModel, modelConfig, modelKeysDefault } from "./utils/model.utils";
 
 export interface ICompany extends IModel {
@@ -7,6 +7,20 @@ export interface ICompany extends IModel {
     cnpj: string;
     users?: string[];
 }
+
+const userSchema = new Schema({
+    ...modelKeysDefault
+    ,
+    userId:{
+        type: mongoose.Types.ObjectId,
+        required: true,
+    }
+    ,
+    name:{
+        type: String,
+        required: true,
+    }
+})
 
 export const companyModel = model<ICompany>("company", new Schema({
     ...modelKeysDefault,
@@ -24,7 +38,7 @@ export const companyModel = model<ICompany>("company", new Schema({
         required: true,
     },
     users: {
-        type: [String],
+        type: [userSchema],
         required: false,
         default: [],
     }
