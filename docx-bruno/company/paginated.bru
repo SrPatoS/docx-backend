@@ -1,17 +1,17 @@
 meta {
-  name: update
+  name: paginated
   type: http
-  seq: 2
+  seq: 6
 }
 
-put {
-  url: http://{{host}}/company?id=67c77e3426e969628dfa6f87
+post {
+  url: http://{{host}}/company/paginated
   body: json
   auth: bearer
 }
 
 params:query {
-  id: 67c77e3426e969628dfa6f87
+  ~id: 67c77e3426e969628dfa6f87
 }
 
 headers {
@@ -24,8 +24,7 @@ auth:bearer {
 
 body:json {
   {
-    "name":"SrPatosEnterpris 1111e",
-    "cnpj":"12.345.678/0001-901111",
-    "uniqueCode": "330"
+    "page":"1",
+    "itemsPerPage":"10"
   }
 }

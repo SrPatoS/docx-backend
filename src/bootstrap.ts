@@ -10,7 +10,7 @@ const bootstrap = async () => {
 
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
-	app.use(timeout("10s"));
+	app.use(timeout("5s"));
 
 	app.use(routes);
 
