@@ -3,29 +3,26 @@ import { ApiResponse } from "@src/api/_types/api-response.type";
 import { z, ZodError } from "zod";
 import { formatZodErrorUtil } from "@src/api/_utils/format-zod-error.util";
 import { MongoUtils } from "@src/api/_utils/mongo.utils";
-import { it } from "node:test";
 
-export class CrudUseCase<T> {
+export class CrudUseCase {
 	constructor(
-		private model: Model<T>,
-		private validationSchema: z.Schema
+		private model: Model<any>,
+		private validationSchema: z.ZodSchema
 	) {
 	}
 
-	private validateData(data: any): string[] {
-		const errors: string[] = [];
-		try {
-			this.validationSchema.parse(data);
-		} catch (err) {
-			if (err instanceof ZodError) {
-				errors.push(...formatZodErrorUtil(err));
-			}
-		}
-		return errors;
-	}
-
-	async create(data: T): Promise<ApiResponse> {
+	async create(data: any): Promise<ApiResponse> {
 		const errors = this.validateData(data);
+
+		const find = await this.model.findOne({
+			active: true,
+			uniqueCode: data.uniqueCode
+		}).exec();
+
+		if (find) {
+			errors.push("Já existe um registro com este código!");
+		}
+
 		let response: ApiResponse = {
 			errors: [],
 			data: {},
@@ -46,8 +43,18 @@ export class CrudUseCase<T> {
 		return response;
 	}
 
-	async update(data: T, id: string | Id): Promise<ApiResponse> {
+	async update(data: any, id: string | Id): Promise<ApiResponse> {
 		const errors = this.validateData(data);
+
+		const find = await this.model.findOne({
+			active: true,
+			_id: MongoUtils.convertObjetId(id)
+		}).exec();
+
+		if (!find) {
+			errors.push("Não existe um registro com este Id!");
+		}
+
 		let response: ApiResponse = {
 			errors: [],
 			data: {},
@@ -213,5 +220,17 @@ export class CrudUseCase<T> {
 		response.data = await this.model.aggregate(pipeline).exec();
 
 		return response;
+	}
+
+	private validateData(data: any): string[] {
+		const errors: string[] = [];
+		try {
+			this.validationSchema.parse(data);
+		} catch (err) {
+			if (err instanceof ZodError) {
+				errors.push(...formatZodErrorUtil(err));
+			}
+		}
+		return errors;
 	}
 }

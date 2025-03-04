@@ -1,7 +1,8 @@
 import { z } from "zod";
 
 export const companyApiSchema = z.object({
-    avatar: z.string().optional(),
-    name: z.string(),
-    cnpj: z.string().min(18),
+	avatar: z.string().optional(),
+	name: z.string(),
+	cnpj: z.string().min(18),
+	uniqueCode: z.string().min(1)
 });

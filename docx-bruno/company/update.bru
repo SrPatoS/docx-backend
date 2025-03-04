@@ -1,13 +1,17 @@
 meta {
-  name: create
+  name: update
   type: http
-  seq: 1
+  seq: 2
 }
 
-post {
-  url: http://{{host}}/company
+put {
+  url: http://{{host}}/company?id
   body: json
   auth: bearer
+}
+
+params:query {
+  id: 
 }
 
 headers {
