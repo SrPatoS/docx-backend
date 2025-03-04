@@ -3,6 +3,7 @@ import { environment } from "@src/environment";
 import * as jwt from "jsonwebtoken";
 import { userModel } from "@src/models/user.model";
 
+
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const authHeader = req.headers.authorization;
 

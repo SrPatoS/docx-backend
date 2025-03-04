@@ -1,0 +1,26 @@
+meta {
+  name: create
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://{{host}}/company
+  body: json
+  auth: bearer
+}
+
+headers {
+  api-key: {{api-key}}
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9ueUBnbWFpbC5jb20iLCJpYXQiOjE3NDEwNjI3ODIsImV4cCI6MTc0MTEyNzU4Mn0.-Rzr2qLr0WQ8rdKouRe_dm_cD-OTTO-00TXKbBympl0
+}
+
+body:json {
+  {
+    "name":"SrPatosEnterprise",
+    "cnpj":"12.345.678/0001-90"
+  }
+}
