@@ -13,9 +13,5 @@ routes.use("/auth", authApiRoutes);
 
 routes.use(authMiddleware);
 routes.use("/user", userApiRoutes);
-
-routes.use(authMiddleware);
 routes.use("/company", companyApiRoutes);
-
-routes.use(authMiddleware);
 routes.use("work-report", workReportApiRoutes);
