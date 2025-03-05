@@ -4,6 +4,7 @@ import { logger } from "io-logger";
 import { routes } from "@src/routes";
 import * as mongoose from "mongoose";
 import timeout from "connect-timeout";
+import cors from "cors";
 
 const bootstrap = async () => {
 	const app = express();
@@ -11,6 +12,7 @@ const bootstrap = async () => {
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
 	app.use(timeout("5s"));
+	app.use(cors());
 
 	app.use(routes);
 
