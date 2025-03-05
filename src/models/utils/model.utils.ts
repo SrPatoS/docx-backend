@@ -8,6 +8,11 @@ export const modelKeysDefault = {
     type: Boolean,
     required: true,
     default: true,
+  },
+  uniqueCode: {
+    type: String,
+    required: true,
+    unique: true,
   }
 }
 

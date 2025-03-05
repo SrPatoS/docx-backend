@@ -1,11 +1,13 @@
-import { Request, Response } from "express";
-import { CompanyApiCreateUseCase } from "./usecases/create-company-api.usecase";
-import { apiCreateResponseUtil } from "@src/api/_utils/api-create-response.util";
+import { CrudController } from "@src/api/_core/crud/crud.controller";
+import { companyModel } from "@src/models/company.model";
+import { companyApiSchema } from "@src/api/module/company-api/company-api.schema";
 
-export class CompanyApiController {
-    async create(req:Request, res: Response){
-        const service = new CompanyApiCreateUseCase();
-        const data = await service.handler(req.body);
-        apiCreateResponseUtil(data, res);
-    }
+export class CompanyApiController extends CrudController {
+	constructor() {
+		super(
+			"company",
+			companyModel,
+			companyApiSchema
+		);
+	}
 }

@@ -1,0 +1,31 @@
+meta {
+  name: update
+  type: http
+  seq: 2
+}
+
+put {
+  url: http://{{host}}/company?id=67c77e3426e969628dfa6f87
+  body: json
+  auth: bearer
+}
+
+params:query {
+  id: 67c77e3426e969628dfa6f87
+}
+
+headers {
+  api-key: {{api-key}}
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9ueUBnbWFpbC5jb20iLCJpYXQiOjE3NDEwOTkwMDQsImV4cCI6MTc0MTE2MzgwNH0.RZTkHTA2kc7G9Af9eTL1pN6xEVmcxaf4BPA74V6vpas
+}
+
+body:json {
+  {
+    "name":"SrPatosEnterpris 1111e",
+    "cnpj":"12.345.678/0001-901111",
+    "uniqueCode": "330"
+  }
+}

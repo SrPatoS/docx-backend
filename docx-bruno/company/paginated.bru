@@ -1,0 +1,30 @@
+meta {
+  name: paginated
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://{{host}}/company/paginated
+  body: json
+  auth: bearer
+}
+
+params:query {
+  ~id: 67c77e3426e969628dfa6f87
+}
+
+headers {
+  api-key: {{api-key}}
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9ueUBnbWFpbC5jb20iLCJpYXQiOjE3NDEwOTkwMDQsImV4cCI6MTc0MTE2MzgwNH0.RZTkHTA2kc7G9Af9eTL1pN6xEVmcxaf4BPA74V6vpas
+}
+
+body:json {
+  {
+    "page":"1",
+    "itemsPerPage":"10"
+  }
+}

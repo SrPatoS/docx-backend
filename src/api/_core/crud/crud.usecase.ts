@@ -4,27 +4,25 @@ import { z, ZodError } from "zod";
 import { formatZodErrorUtil } from "@src/api/_utils/format-zod-error.util";
 import { MongoUtils } from "@src/api/_utils/mongo.utils";
 
-export class CrudUseCase<T> {
+export class CrudUseCase {
 	constructor(
-		private model: Model<T>,
-		private validationSchema: z.Schema
+		private model: Model<any>,
+		private validationSchema: z.ZodSchema
 	) {
 	}
 
-	private validateData(data: any): string[] {
-		const errors: string[] = [];
-		try {
-			this.validationSchema.parse(data);
-		} catch (err) {
-			if (err instanceof ZodError) {
-				errors.push(...formatZodErrorUtil(err));
-			}
-		}
-		return errors;
-	}
-
-	async create(data: T): Promise<ApiResponse> {
+	async create(data: any): Promise<ApiResponse> {
 		const errors = this.validateData(data);
+
+		const find = await this.model.findOne({
+			active: true,
+			uniqueCode: data.uniqueCode
+		}).exec();
+
+		if (find) {
+			errors.push("Já existe um registro com este código!");
+		}
+
 		let response: ApiResponse = {
 			errors: [],
 			data: {},
@@ -45,8 +43,18 @@ export class CrudUseCase<T> {
 		return response;
 	}
 
-	async update(data: T, id: string | Id): Promise<ApiResponse> {
+	async update(data: any, id: string | Id): Promise<ApiResponse> {
 		const errors = this.validateData(data);
+
+		const find = await this.model.findOne({
+			active: true,
+			_id: MongoUtils.convertObjetId(id)
+		}).exec();
+
+		if (!find) {
+			errors.push("Não existe um registro com este Id!");
+		}
+
 		let response: ApiResponse = {
 			errors: [],
 			data: {},
@@ -157,60 +165,73 @@ export class CrudUseCase<T> {
 		return response;
 	}
 
-	async paginated(page: number, itemsPerPage: number, sortField?: string, sort?: number, search?: string, fields?: string[]) {
+	async paginated(
+		page: number,
+		itemsPerPage: number,
+		sortField?: string,
+		sort?: number,
+		search?: string,
+		fields?: string[]
+	) {
 		let response: ApiResponse = {
 			errors: [],
 			data: {},
 			message: ""
 		};
 
-		let query = {};
+		let query: any = { active: true };
 
 		if (search && fields) {
 			const escapeRegex = (text: string) => {
 				return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 			};
 
-			const textSearch: any[] = [];
 			const escapedSearch = escapeRegex(String(search));
+			const textSearch: any[] = fields.map((field) => ({
+				[field]: { $regex: escapedSearch, $options: "i" }
+			}));
 
-			fields.forEach((field) => {
-				textSearch.push({
-					[field]: { $regex: escapedSearch, $options: "i" },
-					active: true
-				});
-			});
-
-			query = {
-				$or: textSearch
-			};
+			query.$or = textSearch;
 		}
 
+		const total = await this.model.countDocuments(query).exec();
+
 		const pipeline: PipelineStage[] = [
-			{
-				$match: {
-					active: true,
-					...query
-				}
-			},
-			{
-				$limit: itemsPerPage
-			},
-			{
-				$skip: (page - 1) * itemsPerPage
-			}
+			{ $match: query }
 		];
 
 		if (sort && sortField) {
 			pipeline.push({
-				$sort: {
-					[sortField]: sort as any
-				}
+				$sort: { [sortField]: sort as any }
 			});
 		}
 
-		response.data = await this.model.aggregate(pipeline).exec();
+		pipeline.push(
+			{ $skip: (page - 1) * itemsPerPage },
+			{ $limit: itemsPerPage }
+		);
+
+		response.data = {
+			page,
+			itemsPerPage,
+			sortField,
+			sort,
+			items: await this.model.aggregate(pipeline).exec(),
+			total
+		};
 
 		return response;
+	}
+
+	private validateData(data: any): string[] {
+		const errors: string[] = [];
+		try {
+			this.validationSchema.parse(data);
+		} catch (err) {
+			if (err instanceof ZodError) {
+				errors.push(...formatZodErrorUtil(err));
+			}
+		}
+		return errors;
 	}
 }
