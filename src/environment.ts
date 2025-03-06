@@ -13,4 +13,5 @@
 	rabbitmqManagementPort: parseInt(process.env.RABBITMQ_MANAGEMENT_PORT ?? "15672"),
 	enabledRabbitmq: process.env.ENABLE_RABBITMQ === "true",
 	enabledRabbitQueueConsume: process.env.ENABLE_QUEUE_CONSUME === "true",
+	uploadServiceType: process.env.UPLOAD_SERVICE_TYPE ?? "IMGUR",
 };
