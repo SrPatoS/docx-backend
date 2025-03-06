@@ -14,9 +14,9 @@ export default class UploadFileFactoryService {
     this.imgurUploadService = new ImgurUploadService();
   }
 
-  async upload(file: Express.Multer.File): Promise<string | undefined> {
+  async upload(file: Buffer, filename?: string): Promise<string | undefined> {
     if (this.UPLOAD_SERVICE_TYPE === 'IMGUR') {
-      return await this.imgurUploadService.upload(file);
+      return await this.imgurUploadService.upload(file, filename);
     }
 
     // return await this.gcloudUploadService.upload(file);

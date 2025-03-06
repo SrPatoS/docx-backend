@@ -6,7 +6,7 @@ meta {
 
 post {
   url: http://{{host}}/user/avatar/upload
-  body: json
+  body: multipartForm
   auth: bearer
 }
 
@@ -15,5 +15,9 @@ headers {
 }
 
 auth:bearer {
-  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGVtYWlsLmNvbSIsImlhdCI6MTc0MTAzMjg0NiwiZXhwIjoxNzQxMDk3NjQ2fQ.I_wN75iuFb-uSd6XKH6PL2D_VzYEQjuRr1G9UPBshNE
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9ueUBnbWFpbC5jb20iLCJpYXQiOjE3NDEyOTQ0MDIsImV4cCI6MTc0MTM1OTIwMn0.Nmxl2hkCU7r-wFpUbPwu2bBJEQUGbV_L6FOVM9hu9mg
+}
+
+body:multipart-form {
+  image: @file()
 }

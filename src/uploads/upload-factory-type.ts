@@ -1,3 +1,3 @@
-export interface IUploadFactoryService {
-  upload(file: Express.Multer.File): Promise<string | undefined>;
+export interface IUploadFactoryServiceType {
+  upload(buffer: Buffer, filename?: string): Promise<string | undefined>;
 }
