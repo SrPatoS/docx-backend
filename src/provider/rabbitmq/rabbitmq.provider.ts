@@ -3,11 +3,6 @@ import amqp, { Channel, ChannelModel } from "amqplib";
 import { environment } from "@src/environment";
 import { logger } from "io-logger";
 
-type RabbitmqConfigResponse = {
-	connection: ChannelModel;
-	channel: Channel;
-}
-
 export class RabbitmqProvider implements IProvider {
 	public static Instance: RabbitmqProvider;
 
@@ -25,13 +20,19 @@ export class RabbitmqProvider implements IProvider {
 		if (!environment.enabledRabbitmq) {
 			return;
 		}
-
-		const RABBITMQ_URL = `amqp://${environment.rabbitmqUser}:${environment.rabbitmqPassword}@${environment.rabbitmqHost}:${environment.rabbitmqPort}`;
 		try {
-			this.connection = await amqp.connect(RABBITMQ_URL);
+			this.connection = await amqp.connect({
+				vhost: environment.rabbitmqHost,
+				port: environment.rabbitmqPort,
+				username: environment.rabbitmqUser,
+				password: environment.rabbitmqPassword,
+				hostname: environment.rabbitmqHost
+			});
 			this.channel = await this.connection.createChannel();
 			logger.info(`RabbitMQ connected in: ${environment.rabbitmqHost}:${environment.rabbitmqPort}`);
+			logger.info(`RabbitMQ management: http://${environment.rabbitmqHost}:${environment.rabbitmqManagementPort}`);
 		} catch (error: any) {
+			console.log(error);
 			logger.error(`RabbitMQ connection: ${JSON.stringify(error)}`);
 		}
 	}
