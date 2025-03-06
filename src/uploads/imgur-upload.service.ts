@@ -1,6 +1,7 @@
 import axios from 'axios';
 import FormData from 'form-data';
 import { IUploadFactoryServiceType } from './upload-factory-type';
+import { logger } from 'io-logger';
 
 export class ImgurUploadService implements IUploadFactoryServiceType {
   private clientId: string = process.env.IMGUR_ID || '';
@@ -21,15 +22,15 @@ export class ImgurUploadService implements IUploadFactoryServiceType {
     );
 
     if (response.status !== 200) {
-      throw new Error(`Failed to refresh token: ${response.data.error}`);
+      logger.debug(`Failed to refresh token: ${response.data.error}`);
     }
 
     this.accessToken = response.data.access_token;
   }
 
-  async upload(buffer: Buffer, filename?: string): Promise<string> {
+  async upload(buffer: Buffer, filename?: string): Promise<string | undefined> {
     if (!buffer) {
-      throw new Error('No buffer provided for upload.');
+      logger.debug('No buffer provided for upload.');
     }
 
     const formData = new FormData();
@@ -61,12 +62,12 @@ export class ImgurUploadService implements IUploadFactoryServiceType {
       }
 
       if (response.status !== 200) {
-        throw new Error(response.data.data.error);
+        logger.debug(response.data.data.error);
       }
 
       return response.data.data.link;
     } catch (error: any) {
-      throw new Error('Failed to upload image to Imgur: ' + error.message);
+      logger.debug('Failed to upload image to Imgur: ' + error.message);
     }
   }
 }
