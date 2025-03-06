@@ -1,9 +1,15 @@
 ﻿export const environment = {
-  port: parseInt(process.env.PORT ?? '4000'),
-  host: process.env.HOST ?? 'localhost',
-  apiKey: process.env.API_KEY ?? '',
-  mongoUrl: process.env.MONGO_URL ?? '',
-  mongoDb: process.env.MONGO_DB ?? '',
-  bcryptSalt: parseInt(process.env.BCRYPT_SALT ?? '10'),
-  tokenSecret: process.env.TOKEN_SECRET ?? '',
-}
+	port: parseInt(process.env.PORT ?? "4000"),
+	host: process.env.HOST ?? "localhost",
+	apiKey: process.env.API_KEY ?? "",
+	mongoUrl: process.env.MONGO_URL ?? "",
+	mongoDb: process.env.MONGO_DB ?? "",
+	bcryptSalt: parseInt(process.env.BCRYPT_SALT ?? "10"),
+	tokenSecret: process.env.TOKEN_SECRET ?? "",
+	rabbitmqUser: process.env.RABBITMQ_USER ?? "",
+	rabbitmqPassword: process.env.RABBITMQ_PASSWORD ?? "",
+	rabbitmqHost: process.env.RABBITMQ_VHOST ?? "",
+	rabbitmqPort: parseInt(process.env.RABBITMQ_PORT ?? "5672"),
+	rabbitmqManagementPort: parseInt(process.env.RABBITMQ_MANAGEMENT_PORT ?? "15672"),
+	enabledRabbitmq: process.env.ENABLE_RABBITMQ === "true"
+};

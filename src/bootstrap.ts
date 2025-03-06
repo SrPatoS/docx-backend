@@ -5,6 +5,7 @@ import { routes } from "@src/routes";
 import * as mongoose from "mongoose";
 import timeout from "connect-timeout";
 import cors from "cors";
+import { provider } from "@src/provider/provider";
 
 const bootstrap = async () => {
 	const app = express();
@@ -21,6 +22,8 @@ const bootstrap = async () => {
 	}).then(() => {
 		logger.info("Connected to DB");
 	});
+
+	await provider();
 
 	process.on("uncaughtException", (err) => {
 		logger.error(err);
