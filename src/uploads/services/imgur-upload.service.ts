@@ -1,6 +1,6 @@
 import axios from 'axios';
 import FormData from 'form-data';
-import { IUploadFactoryServiceType } from './upload-factory-type';
+import { IUploadFactoryServiceType } from '../upload-factory-type';
 import { logger } from 'io-logger';
 
 export class ImgurUploadService implements IUploadFactoryServiceType {

@@ -1,6 +1,6 @@
 ﻿import { userModel } from "@src/models/user.model";
 import { QueueName, RabbitmqQueue } from "@src/provider/rabbitmq/rabbitmq.queue";
-import { ImgurUploadService } from "@src/uploads/imgur-upload.service";
+import { ImgurUploadService } from "@src/uploads/services/imgur-upload.service";
 import UploadFileFactoryService from "@src/uploads/upload-file.service";
 import { logger } from "io-logger";
 

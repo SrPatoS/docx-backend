@@ -1,5 +1,5 @@
 import { environment } from '@src/environment';
-import { ImgurUploadService } from './imgur-upload.service';
+import { ImgurUploadService } from './services/imgur-upload.service';
 
 type UPLOAD_SERVICE_TYPE = 'IMGUR' | 'GCLOUD';
 
