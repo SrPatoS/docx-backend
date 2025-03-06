@@ -21,6 +21,7 @@
     "io-logger": "^1.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.10.1",
+    "multer": "^1.4.5-lts.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "zod": "^3.24.2"
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@types/amqplib": "^0.10.7",
     "@types/connect-timeout": "^0.0.39",
-    "@types/cors": "^2.8.17"
+    "@types/cors": "^2.8.17",
+    "@types/multer": "^1.4.12"
   }
 }

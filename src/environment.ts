@@ -11,5 +11,6 @@
 	rabbitmqHost: process.env.RABBITMQ_VHOST ?? "",
 	rabbitmqPort: parseInt(process.env.RABBITMQ_PORT ?? "5672"),
 	rabbitmqManagementPort: parseInt(process.env.RABBITMQ_MANAGEMENT_PORT ?? "15672"),
-	enabledRabbitmq: process.env.ENABLE_RABBITMQ === "true"
+	enabledRabbitmq: process.env.ENABLE_RABBITMQ === "true",
+	enabledRabbitQueueConsume: process.env.ENABLE_QUEUE_CONSUME === "true",
 };

@@ -1,0 +1,19 @@
+meta {
+  name: upload
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://{{host}}/user/avatar/upload
+  body: json
+  auth: bearer
+}
+
+headers {
+  api-key: {{api-key}}
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGVtYWlsLmNvbSIsImlhdCI6MTc0MTAzMjg0NiwiZXhwIjoxNzQxMDk3NjQ2fQ.I_wN75iuFb-uSd6XKH6PL2D_VzYEQjuRr1G9UPBshNE
+}
