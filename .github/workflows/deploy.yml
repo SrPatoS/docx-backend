@@ -20,5 +20,5 @@ jobs:
           port: ${{ secrets.PORT }}
           command_timeout: 30m
           script: |
-            echo "Nice Job!!!"
-            "sudo -i bash -c 'cd ${{ secrets.PROJECT_PATH }} && git pull origin main && npm run deploy'"
+            sudo -i
+            cd ${{ secrets.PROJECT_PATH }} && git pull origin main && npm run deploy
