@@ -32,4 +32,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -T "${{ secrets.SSH_CON }}" << 'EOF'
             pwd
             ls
+            cd ..
+            cd shared
+            pwd
           EOF
