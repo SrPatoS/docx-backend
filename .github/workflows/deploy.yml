@@ -33,5 +33,5 @@ jobs:
             cd ..
             cd shared
             chmod +x deploy.sh
-            ./deploy.sh
+            bash deploy.sh
           EOF
