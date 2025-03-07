@@ -29,4 +29,4 @@ jobs:
 
       - name: Run script on VM
         run: |
-          ssh -t -i ~/.ssh/id_rsa "${{ secrets.SSH_CON }}" "npm"
+          ssh -t -i ~/.ssh/id_rsa "${{ secrets.SSH_CON }}" "npm --version"
