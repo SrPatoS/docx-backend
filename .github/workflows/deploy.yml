@@ -40,4 +40,5 @@ jobs:
       # 5. Conectar via SSH à VM e realizar o deploy
       - name: SSH to VM and deploy
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.GCP_VM_USER }}@${{ secrets.GCP_VM_IP }} "cd ${{ secrets.PROJECT_PATH }} && git pull origin main && npm run deploy"
+          ssh -o StrictHostKeyChecking=no ${{ secrets.GCP_VM_USER }}@${{ secrets.GCP_VM_IP }} "sudo -i bash -c 'cd ${{ secrets.PROJECT_PATH }} && git pull origin main && npm run deploy'"
+
