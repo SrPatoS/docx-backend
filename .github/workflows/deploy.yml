@@ -32,4 +32,5 @@ jobs:
           ssh -t -i ~/.ssh/id_rsa "${{ secrets.SSH_CON }}" << 'EOF'
             pwd
             docker --version
+            node -v
           EOF
