@@ -20,6 +20,7 @@ jobs:
           port: ${{ secrets.PORT }}
           command_timeout: 30m
           script: |
-            sudo -i bash -c "ssh-keyscan -H 35.215.210.101 >> ~/.ssh/known_hosts && git config --global --add safe.directory /home/paulo_ribeiro/docx-backend && cd /home/paulo_ribeiro/docx-backend && git pull origin main && npm run deploy"
+            sudo -i bash -c "ssh-keyscan github.com >> ~/.ssh/known_hosts && git config --global --add safe.directory /home/paulo_ribeiro/docx-backend && cd /home/paulo_ribeiro/docx-backend && git pull origin main && npm run deploy"
+
 
         
