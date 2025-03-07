@@ -33,5 +33,5 @@ jobs:
             cd ..
             cd shared
             cd docx-backend
-            bash deploy.sh
+            sudo bash deploy.sh
           EOF
