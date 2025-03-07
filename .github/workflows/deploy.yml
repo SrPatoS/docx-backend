@@ -30,8 +30,6 @@ jobs:
       - name: Run script on VM
         run: |
           ssh -o StrictHostKeyChecking=no -T "${{ secrets.SSH_CON }}" << 'EOF'
-            cd ..
-            cd shared
-            cd docx-backend
-            sudo bash deploy.sh
+            pwd
+            npm
           EOF
