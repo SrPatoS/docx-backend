@@ -19,7 +19,6 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           echo "${{ secrets.SSH_KEY_PUB }}" >> ~/.ssh/known_hosts
-          # Se sua VM não for pública, adicione o IP ou DNS ao known_hosts manualmente (substitua 'host_ip')
           ssh-keyscan -H "${{ secrets.VM_IP }}" >> ~/.ssh/known_hosts
 
       - name: Test SSH connection
@@ -27,3 +26,12 @@ jobs:
           ssh -o StrictHostKeyChecking=no -T "${{ secrets.SSH_CON }}" "echo 'SSH connection successful!'"
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Run script on VM
+        run: |
+          ssh -o StrictHostKeyChecking=no -T "${{ secrets.SSH_CON }}" << 'EOF'
+            cd ..
+            cd shared
+            chmod +x deploy.sh
+            ./deploy.sh
+          EOF
