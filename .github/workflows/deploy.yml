@@ -30,5 +30,6 @@ jobs:
       - name: Run script on VM
         run: |
           ssh -o StrictHostKeyChecking=no -T "${{ secrets.SSH_CON }}" << 'EOF'
+            pwd
             ls
           EOF
