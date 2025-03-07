@@ -1,2 +1,1 @@
-﻿docker compose down
-npm run deploy
+﻿npm run deploy
