@@ -1,0 +1,19 @@
+﻿services:
+  server_instance:
+    container_name: server_instance
+    restart: always
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - docx-network
+
+volumes:
+  postgres_data:
+
+networks:
+  docx-network:
+    name: docx-network
+    driver: bridge
