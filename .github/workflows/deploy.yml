@@ -13,6 +13,7 @@ jobs:
       - name: print out example job
         uses: appleboy/ssh-action@v0.1.10
         with:
+          passphrase: ${{secrets.SSH_PASS }}
           host: ${{ secrets.GCP_VM_IP }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
