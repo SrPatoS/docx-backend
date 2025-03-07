@@ -5,6 +5,7 @@ import { authApiRoutes } from "./api/module/auth-api/auth-api.routes";
 import { userApiRoutes } from "./api/module/user-api/user-api.routes";
 import { companyApiRoutes } from "./api/module/company-api/company.routes";
 import { workReportApiRoutes } from "./api/module/work-report-api/work-report-api.routes";
+import { genericUploadRoutes } from "./api/_core/upload-queue/generic-upload/generic-upload.routes";
 
 export const routes = Router();
 
@@ -15,3 +16,4 @@ routes.use(authMiddleware);
 routes.use("/user", userApiRoutes);
 routes.use("work-report", workReportApiRoutes);
 routes.use("/", companyApiRoutes);
+routes.use("/generic-upload", genericUploadRoutes);

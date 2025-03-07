@@ -1,0 +1,25 @@
+meta {
+  name: generic-upload-avatar
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://{{host}}/generic-upload/avatar
+  body: multipartForm
+  auth: bearer
+}
+
+headers {
+  api-key: {{api-key}}
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9ueUBnbWFpbC5jb20iLCJpYXQiOjE3NDEzNjE4MjgsImV4cCI6MTc0MTQyNjYyOH0.NlOGlTKuSGEn3rv-0nIzCACCSyCoZXsyTwO6JyzhHQU
+}
+
+body:multipart-form {
+  _id: 67b2749ef7b27c1f6947f79d
+  model: user
+  image: @file(C:\Users\anton\Pictures\1.jpg)
+}
