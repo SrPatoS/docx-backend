@@ -20,4 +20,4 @@ jobs:
           port: ${{ secrets.PORT }}
           command_timeout: 30m
           script: |
-            cd /home/paulo_ribeiro/docx-backend && git pull origin main && npm run deploy"
+            cd /home/paulo_ribeiro/docx-backend && git pull origin main && npm run deploy
