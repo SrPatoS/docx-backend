@@ -30,8 +30,5 @@ jobs:
       - name: Run script on VM
         run: |
           ssh -o StrictHostKeyChecking=no -T "${{ secrets.SSH_CON }}" << 'EOF'
-            cd ..
-            cd shared
-            chmod +x deploy.sh
-            bash deploy.sh
+            ls
           EOF
