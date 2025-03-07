@@ -29,7 +29,7 @@ jobs:
 
       - name: Run script on VM
         run: |
-          ssh -i ~/.ssh/id_rsa "${{ secrets.SSH_CON }}" << 'EOF'
+          ssh -t -i ~/.ssh/id_rsa "${{ secrets.SSH_CON }}" << 'EOF'
             pwd
             npm
           EOF
