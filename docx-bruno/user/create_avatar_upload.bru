@@ -1,0 +1,24 @@
+meta {
+  name: create_avatar_upload
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://{{host}}/user/avatar/create-upload
+  body: multipartForm
+  auth: bearer
+}
+
+headers {
+  api-key: {{api-key}}
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9ueUBnbWFpbC5jb20iLCJpYXQiOjE3NDEyOTQ0MDIsImV4cCI6MTc0MTM1OTIwMn0.Nmxl2hkCU7r-wFpUbPwu2bBJEQUGbV_L6FOVM9hu9mg
+}
+
+body:multipart-form {
+  image: @file(C:\Users\anton\Pictures\DpZ2Xof.png)
+  userId: 67ca676858d032b11a699b12
+}
