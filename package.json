@@ -3,6 +3,7 @@
     "start": "tsx watch --env-file=.env src/bootstrap.ts",
     "start:prod": "node --env-file=.env dist/bootstrap.js",
     "start:services": "docker compose --env-file .env -p docx_services -f docker/docker-compose.services.yml up -d",
+    "start:deploy": "docker compose --env-file .env -p docx_services -f docker/docker-compose.deploy.yml up --build -d",
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json"
   },
   "engines": {

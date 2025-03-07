@@ -14,7 +14,14 @@
       - "${RABBITMQ_MANAGEMENT_PORT}:15672"
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - docx-network
 
 volumes:
   rabbitmq_data:
     driver: local
+
+networks:
+  docx-network:
+    name: docx-network
+    driver: bridge
