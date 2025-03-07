@@ -8,37 +8,15 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 5
     steps:
-      # 1. Checkout do código
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      # 2. Configuração do Google Cloud SDK
-      - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
+      - name: print out example job
+        uses: appleboy/ssh-action@v0.1.10
         with:
-          version: 'latest'
-
-      # 3. Autenticação no Google Cloud
-      - name: Authenticate to Google Cloud
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-        run: |
-          echo "$GOOGLE_APPLICATION_CREDENTIALS" > /tmp/gcp-key.json
-          gcloud auth activate-service-account --key-file /tmp/gcp-key.json
-          gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
-
-      # 4. Configuração do SSH
-      - name: Set up SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.GCP_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.GCP_VM_IP }} >> ~/.ssh/known_hosts
-
-      # 5. Conectar via SSH à VM e realizar o deploy
-      - name: SSH to VM and deploy
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.GCP_VM_USER }}@${{ secrets.GCP_VM_IP }} "sudo -i bash -c 'cd ${{ secrets.PROJECT_PATH }} && git pull origin main && npm run deploy'"
-
+          host: ${{ secrets.GCP_VM_IP }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
+          command_timeout: 30m
+          script: |
+            echo "Nice Job!!!"
