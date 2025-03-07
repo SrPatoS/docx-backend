@@ -21,4 +21,5 @@ jobs:
           command_timeout: 30m
           script: |
             sudo -i
-            cd ${{ secrets.PROJECT_PATH }} && git pull origin main && npm run deploy
+            cd /home/paulo_ribeiro/docx-backend
+            git pull origin main && npm run deploy
