@@ -22,11 +22,17 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         run: |
-          # Cria o arquivo JSON temporário com a chave diretamente do segredo
           echo "$GOOGLE_APPLICATION_CREDENTIALS" > /tmp/gcp-key.json
           gcloud auth activate-service-account --key-file /tmp/gcp-key.json
           gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
 
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.GCP_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -t rsa ${{ secrets.GCP_VM_IP }} >> ~/.ssh/known_hosts
+
       - name: SSH to VM and deploy
         run: |
-          gcloud compute ssh --zone ${{ secrets.GCP_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }} ${{ secrets.GCP_VM_NAME }} --command "cd ${{ secrets.PROJECT_PATH }} && git pull origin main && npm run deploy"
+          ssh -o StrictHostKeyChecking=no ${{ secrets.GCP_VM_USER }}@${{ secrets.GCP_VM_IP }} "cd ${{ secrets.PROJECT_PATH }} && git pull origin main && npm run deploy"
