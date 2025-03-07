@@ -20,7 +20,7 @@ jobs:
 
       - name: Authenticate to Google Cloud
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         run: |
           echo $GOOGLE_APPLICATION_CREDENTIALS | base64 --decode > /tmp/gcp-key.json
           gcloud auth activate-service-account --key-file /tmp/gcp-key.json
