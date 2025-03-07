@@ -20,4 +20,5 @@ jobs:
           port: ${{ secrets.PORT }}
           command_timeout: 30m
           script: |
-            sudo -i bash -c "cd /home/paulo_ribeiro/docx-backend && git pull origin main && npm run deploy"
+            sudo -i bash -c "git config --global --add safe.directory /home/paulo_ribeiro/docx-backend && cd /home/paulo_ribeiro/docx-backend && git pull origin main && npm run deploy"
+        
