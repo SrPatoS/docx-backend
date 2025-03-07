@@ -1,49 +1,29 @@
-﻿name: Deploy to Cloud Run
-
-env:
-  SERVICE_NAME: docx-api
-  PROJECT_ID: h-t-d-a-f-a-t-g-c-r
-  DOCKER_IMAGE_URL: us-central1-docker.pkg.dev/h-t-d-a-f-a-t-g-c-r/custom-fastapi/custom-fastapi
+﻿name: Deploy
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  dockerize-and-deploy:
+  test-ssh:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Google Cloud Auth
-        uses: 'google-github-actions/auth@v2'
-        with:
-          credentials_json: '${{ secrets.GCP_SA_KEY }}'
-          project_id: ${{ env.PROJECT_ID }}
-
-      - name: Set up Cloud SDK
-        uses: 'google-github-actions/setup-gcloud@v2'
-
-      - name: Configure Docker
+      - name: Set up SSH key
         run: |
-          gcloud auth configure-docker us-central1-docker.pkg.dev
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KEY_PUB }}" >> ~/.ssh/known_hosts
+          # Se sua VM não for pública, adicione o IP ou DNS ao known_hosts manualmente (substitua 'host_ip')
+          ssh-keyscan -H "${{ secrets.VM_IP }}" >> ~/.ssh/known_hosts
 
-      - name: Build and Push Docker Image
+      - name: Test SSH connection
         run: |
-          docker build -t ${{ env.DOCKER_IMAGE_URL }}:latest -f Dockerfile.prod .
-          docker push ${{ env.DOCKER_IMAGE_URL }}:latest
-
-      - name: Deploy to Cloud Run
-        run: |
-          echo SERVICE_NAME $SERVICE_NAME
-          gcloud run deploy $SERVICE_NAME \
-            --image ${{ env.DOCKER_IMAGE_URL }}:latest \
-            --platform managed \
-            --region us-east1 \
-            --allow-unauthenticated
+          ssh -o StrictHostKeyChecking=no -T "${{ secrets.SSH_CON }}" "echo 'SSH connection successful!'"
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
