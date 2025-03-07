@@ -1,26 +1,49 @@
-﻿name: Deploy to GCP VM
+﻿name: Deploy to Cloud Run
+
+env:
+  SERVICE_NAME: docx-api
+  PROJECT_ID: h-t-d-a-f-a-t-g-c-r
+  DOCKER_IMAGE_URL: us-central1-docker.pkg.dev/h-t-d-a-f-a-t-g-c-r/custom-fastapi/custom-fastapi
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  deploy:
+  dockerize-and-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+
     steps:
-      - name: print out example job
-        uses: appleboy/ssh-action@v0.1.10
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Google Cloud Auth
+        uses: 'google-github-actions/auth@v2'
         with:
-          passphrase: ${{secrets.SSH_PASS }}
-          host: ${{ secrets.GCP_VM_IP }}
-          username: ${{ secrets.GCP_VM_USER }}
-          key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
-          port: ${{ secrets.PORT }}
-          command_timeout: 30m
-          script: |
-            sudo -i bash -c "cd /home/paulo_ribeiro/docx-backend && git pull origin main && npm run deploy"
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+          project_id: ${{ env.PROJECT_ID }}
 
+      - name: Set up Cloud SDK
+        uses: 'google-github-actions/setup-gcloud@v2'
 
-        
+      - name: Configure Docker
+        run: |
+          gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t ${{ env.DOCKER_IMAGE_URL }}:latest -f Dockerfile.prod .
+          docker push ${{ env.DOCKER_IMAGE_URL }}:latest
+
+      - name: Deploy to Cloud Run
+        run: |
+          echo SERVICE_NAME $SERVICE_NAME
+          gcloud run deploy $SERVICE_NAME \
+            --image ${{ env.DOCKER_IMAGE_URL }}:latest \
+            --platform managed \
+            --region us-east1 \
+            --allow-unauthenticated
