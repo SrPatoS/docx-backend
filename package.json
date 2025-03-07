@@ -1,12 +1,14 @@
 {
   "scripts": {
     "start": "tsx watch --env-file=.env src/bootstrap.ts",
-    "start:prod": "tsx watch src/bootstrap.ts",
-    "start:services": "docker compose --env-file .env -p docx_services -f docker/docker-compose.services.yml up -d\n"
+    "start:prod": "node --env-file=.env dist/bootstrap.js",
+    "start:services": "docker compose --env-file .env -p docx_services -f docker/docker-compose.services.yml up -d",
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json"
   },
   "engines": {
     "node": "22"
   },
+  "main": "dist/bootstrap.js",
   "dependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
@@ -24,6 +26,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.10.1",
     "multer": "^1.4.5-lts.1",
+    "tsc-alias": "^1.8.11",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "zod": "^3.24.2"
