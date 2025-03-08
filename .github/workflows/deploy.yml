@@ -1,4 +1,4 @@
-﻿name: Deploy
+﻿name: Deploy to GCLOUD
 
 on:
   push:
@@ -6,14 +6,14 @@ on:
       - main
 
 jobs:
-  test-ssh:
+  deploy-docker:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up SSH key
+      - name: Configurando SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
@@ -21,13 +21,16 @@ jobs:
           echo "${{ secrets.SSH_KEY_PUB }}" >> ~/.ssh/known_hosts
           ssh-keyscan -H "${{ secrets.VM_IP }}" >> ~/.ssh/known_hosts
 
-      - name: Test SSH connection
+      - name: Checando Tipagem
         run: |
-          ssh -o StrictHostKeyChecking=no -T "${{ secrets.SSH_CON }}" "echo 'SSH connection successful!'"
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh -t -i ~/.ssh/id_rsa "${{ secrets.SSH_CON }}" << 'EOF'
+            cd ..
+            cd shared
+            cd docx-backend
+            npm run check:build
+          EOF
 
-      - name: Run script on VM
+      - name: Fazendo deploy
         run: |
           ssh -t -i ~/.ssh/id_rsa "${{ secrets.SSH_CON }}" << 'EOF'
             cd ..
