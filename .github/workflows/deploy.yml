@@ -37,5 +37,5 @@ jobs:
             cd ..
             cd shared
             cd docx-backend
-            bash deploy.sh
+            npm run deploy
           EOF
