@@ -5,7 +5,7 @@
     "start:services": "docker compose --env-file .env -p docx_services -f docker/docker-compose.services.yml up -d",
     "start:deploy:build": "docker compose --env-file .env -p docx_services -f docker/docker-compose.deploy.yml up --build -d",
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
-    "deploy": "git pull origin main && npm run start:services && npm run start:deploy:build",
+    "deploy": "npm run start:services && npm run start:deploy:build",
     "check:build": "git pull origin main && npm install && npx tsc -noEmit"
   },
   "engines": {
