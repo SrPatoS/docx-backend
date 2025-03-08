@@ -6,14 +6,14 @@ on:
       - main
 
 jobs:
-  deploy-docker:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Configurando SSH
+      - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
@@ -21,17 +21,17 @@ jobs:
           echo "${{ secrets.SSH_KEY_PUB }}" >> ~/.ssh/known_hosts
           ssh-keyscan -H "${{ secrets.VM_IP }}" >> ~/.ssh/known_hosts
 
-      - name: Checando Tipagem
+      - name: Checking Typing
         run: |
           ssh -t -i ~/.ssh/id_rsa "${{ secrets.SSH_CON }}" << 'EOF'
             cd ..
             cd shared
             cd docx-backend
-            ls
+            npm run check:build
           EOF
         continue-on-error: false
 
-      - name: Fazendo deploy
+      - name: Deploying
         run: |
           ssh -t -i ~/.ssh/id_rsa "${{ secrets.SSH_CON }}" << 'EOF'
             cd ..
