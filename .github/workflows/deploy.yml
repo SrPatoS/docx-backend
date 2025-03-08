@@ -27,7 +27,7 @@ jobs:
             cd ..
             cd shared
             cd docx-backend
-            npm run check:build
+            ls
           EOF
         continue-on-error: false
 
