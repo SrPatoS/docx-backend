@@ -38,7 +38,7 @@ export const userModel = model<IUser>("user", new Schema({
   },
   companyId:{
     type: Schema.Types.ObjectId,
-    required: true,
+    required: false,
     ref: "company"
   },
   lastCloudDownloaded: {

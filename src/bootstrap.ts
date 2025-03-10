@@ -21,6 +21,7 @@ const bootstrap = async () => {
 		dbName: environment.mongoDb
 	}).then(() => {
 		logger.info("Connected to DB");
+		
 	});
 
 	await provider();

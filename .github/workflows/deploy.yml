@@ -1,26 +1,45 @@
-﻿name: Deploy to GCP VM
+﻿name: Deploy to GCLOUD
 
 on:
   push:
     branches:
       - main
 
+concurrency:
+  group: "deploy-to-gcloud"
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+
     steps:
-      - name: print out example job
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          passphrase: ${{secrets.SSH_PASS }}
-          host: ${{ secrets.GCP_VM_IP }}
-          username: ${{ secrets.GCP_VM_USER }}
-          key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
-          port: ${{ secrets.PORT }}
-          command_timeout: 30m
-          script: |
-            sudo -i bash -c "cd /home/paulo_ribeiro/docx-backend && git pull origin main && npm run deploy"
+      - name: Checkout code
+        uses: actions/checkout@v2
 
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KEY_PUB }}" >> ~/.ssh/known_hosts
+          ssh-keyscan -H "${{ secrets.VM_IP }}" >> ~/.ssh/known_hosts
 
-        
+      - name: Checking Typing
+        run: |
+          ssh -t -i ~/.ssh/id_rsa "${{ secrets.SSH_CON }}" << 'EOF'
+            cd ..
+            cd shared
+            cd docx-backend
+            npm run check:build
+          EOF
+        continue-on-error: false
+
+      - name: Deploying
+        run: |
+          ssh -t -i ~/.ssh/id_rsa "${{ secrets.SSH_CON }}" << 'EOF'
+            cd ..
+            cd shared
+            cd docx-backend
+            npm run deploy
+          EOF
