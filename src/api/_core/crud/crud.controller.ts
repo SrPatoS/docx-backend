@@ -18,17 +18,20 @@ export class CrudController {
 		);
 	}
 
-	getRouter() {
+	getRouter(middlewares: any[] = []) {
 		const router = Router();
-		router.post(`/${this.route}`, this.create.bind(this));
-		router.put(`/${this.route}`, this.update.bind(this));
-		router.get(`/${this.route}`, this.get.bind(this));
-		router.delete(`/${this.route}`, this.delete.bind(this));
-		router.get(`/${this.route}/all`, this.all.bind(this));
-		router.post(`/${this.route}/paginated`, this.paginated.bind(this));
-		router.post(`/${this.route}/search`, this.search.bind(this));
+
+		router.post(`/${this.route}`, ...middlewares, this.create.bind(this));
+		router.put(`/${this.route}`, ...middlewares, this.update.bind(this));
+		router.get(`/${this.route}`, ...middlewares, this.get.bind(this));
+		router.delete(`/${this.route}`, ...middlewares, this.delete.bind(this));
+		router.get(`/${this.route}/all`, ...middlewares, this.all.bind(this));
+		router.post(`/${this.route}/paginated`, ...middlewares, this.paginated.bind(this));
+		router.post(`/${this.route}/search`, ...middlewares, this.search.bind(this));
+
 		return router;
 	}
+
 
 	protected async create(req: Request, res: Response) {
 		const result = await this.useCase.create(req.body);

@@ -6,6 +6,7 @@ import { userApiRoutes } from "./api/module/user-api/user-api.routes";
 import { companyApiRoutes } from "./api/module/company-api/company.routes";
 import { workReportApiRoutes } from "./api/module/work-report-api/work-report-api.routes";
 import { genericUploadRoutes } from "./api/_core/crud-upload-avatar/generic-upload/generic-upload.routes";
+import { menuApiRoutes } from "@src/api/module/menu-api/menu-api.routes";
 
 export const routes = Router();
 
@@ -17,3 +18,4 @@ routes.use("/user", userApiRoutes);
 routes.use("work-report", workReportApiRoutes);
 routes.use("/", companyApiRoutes);
 routes.use("/generic-upload", genericUploadRoutes);
+routes.use("/", menuApiRoutes);

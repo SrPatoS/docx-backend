@@ -1,9 +1,1 @@
-﻿export const rules = {
-  manager: [
-    "user",
-    "report"
-  ],
-  collaborator: [
-    "work",
-  ],
-}
+﻿export type Rule = "admin" | "manager" | "collaborator";
