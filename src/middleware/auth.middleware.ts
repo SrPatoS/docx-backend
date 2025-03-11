@@ -19,7 +19,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
 
     res.locals["userData"] = await userModel.findOne({
       email: decoded.email
-    }).exec();
+    }).select("-password").exec();
 
     next();
   } catch (error) {
