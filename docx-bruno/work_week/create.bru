@@ -1,0 +1,69 @@
+meta {
+  name: create
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://{{host}}/work-week
+  body: json
+  auth: bearer
+}
+
+headers {
+  api-key: {{api-key}}
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9ueUBnbWFpbC5jb20iLCJpYXQiOjE3NDE3Mjg0ODAsImV4cCI6MTc0MTc5MzI4MH0.S2Z1N0KJWUybq2mheQYHLxHt-doW51VGcw9HeEHc3F0
+}
+
+body:json {
+  {
+    "userId": "67c60e64e7551b3db8233931",
+    "uniqueCode":"1",
+    "segunda": {
+      "start": "2025-03-11T08:00:00.000Z",
+      "lunchStart": "2025-03-11T12:00:00.000Z",
+      "lunchEnd": "2025-03-11T13:00:00.000Z",
+      "end": "2025-03-11T17:00:00.000Z"
+    },
+    "terca": {
+      "start": "2025-03-12T08:00:00.000Z",
+      "lunchStart": "2025-03-12T12:00:00.000Z",
+      "lunchEnd": "2025-03-12T13:00:00.000Z",
+      "end": "2025-03-12T17:00:00.000Z"
+    },
+    "quarta": {
+      "start": "2025-03-13T08:00:00.000Z",
+      "lunchStart": "2025-03-13T12:00:00.000Z",
+      "lunchEnd": "2025-03-13T13:00:00.000Z",
+      "end": "2025-03-13T17:00:00.000Z"
+    },
+    "quinta": {
+      "start": "2025-03-14T08:00:00.000Z",
+      "lunchStart": "2025-03-14T12:00:00.000Z",
+      "lunchEnd": "2025-03-14T13:00:00.000Z",
+      "end": "2025-03-14T17:00:00.000Z"
+    },
+    "sexta": {
+      "start": "2025-03-15T08:00:00.000Z",
+      "lunchStart": "2025-03-15T12:00:00.000Z",
+      "lunchEnd": "2025-03-15T13:00:00.000Z",
+      "end": "2025-03-15T17:00:00.000Z"
+    },
+    "sabado": {
+      "start": "2025-03-16T08:00:00.000Z",
+      "lunchStart": "2025-03-16T12:00:00.000Z",
+      "lunchEnd": "2025-03-16T13:00:00.000Z",
+      "end": "2025-03-16T17:00:00.000Z"
+    },
+    "domingo": {
+      "start": "2025-03-17T08:00:00.000Z",
+      "lunchStart": "2025-03-17T12:00:00.000Z",
+      "lunchEnd": "2025-03-17T13:00:00.000Z",
+      "end": "2025-03-17T17:00:00.000Z"
+    }
+  }
+  
+}
