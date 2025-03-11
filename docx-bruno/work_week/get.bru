@@ -1,0 +1,25 @@
+meta {
+  name: get
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://{{host}}/week
+  body: none
+  auth: bearer
+}
+
+headers {
+  api-key: {{api-key}}
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9ueUBnbWFpbC5jb20iLCJpYXQiOjE3NDE3Mjg0ODAsImV4cCI6MTc0MTc5MzI4MH0.S2Z1N0KJWUybq2mheQYHLxHt-doW51VGcw9HeEHc3F0
+}
+
+body:json {
+  {
+    "id":"67c60e64e7551b3db8233931"
+  }
+}
