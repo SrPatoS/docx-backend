@@ -7,10 +7,7 @@ export interface IReport {
 }
 
 export interface IWorkReport extends IModel {
-  userName: string;
   userId: Id;
-  companyId: Id;
-  companyName: string;
   startWork: IReport;
   startLunch: IReport;
   endLunch: IReport;
@@ -30,23 +27,10 @@ const reportSchema = new Schema({
 
 export const workReportModel = model<IWorkReport>("workReportModel", new Schema({
   ...modelKeysDefault,
-  userName: {
-    type: String,
-    required: true,
-  },
   userId: {
     type: Schema.Types.ObjectId,
     ref: "user",
     required: true,
-  },
-  companyId: {
-    type: Schema.Types.ObjectId,
-    ref: "user",
-    required: false,
-  },
-  companyName: {
-    type: String,
-    required: false,
   },
   startWork: reportSchema,
   endWork: reportSchema,

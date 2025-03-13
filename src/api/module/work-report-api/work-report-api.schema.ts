@@ -6,10 +6,7 @@ const reportSchema = z.object({
 });
 
 export const workReportSchema = z.object({
-    userName: z.string().optional(),
     userId: z.string(),
-    companyId: z.string(),
-    companyName: z.string().optional(),
     startWork: reportSchema,
     endWork: reportSchema,
     startLunch: reportSchema,
