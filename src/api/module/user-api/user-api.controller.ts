@@ -10,7 +10,6 @@ export class UserApiController {
 		const service = new UserApiCreateUseCase();
 		const data = await service.handler(req.body as UserCreateData);
 		apiCreateResponseUtil(data, res);
-		res.locals["userCreateData"] = data.data
 	}
 
 	async read(req: Request, res: Response) {

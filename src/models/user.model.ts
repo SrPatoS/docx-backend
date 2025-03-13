@@ -29,7 +29,7 @@ export const userModel = model<IUser>("user", new Schema({
   avatar: {
     type: String,
     required: false,
-    default: null,
+    default: 'https://i.imgur.com/zh99mGz.png',
   },
   rule: {
     type: Schema.Types.ObjectId,
