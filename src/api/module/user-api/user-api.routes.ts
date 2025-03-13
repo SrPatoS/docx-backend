@@ -19,4 +19,3 @@ userApiRoutes.get("/", controller.read);
 userApiRoutes.post("/last-cloud-downloaded", controller.getLastCloudDownloaded);
 userApiRoutes.put("/", controllerTest.getRouter());
 userApiRoutes.post("/avatar/upload", multerUpload.single("image"), controller.avatarUpload);
-userApiRoutes.post("/avatar/create-upload", multerUpload.single("image"), controller.avatarCreateUpload);

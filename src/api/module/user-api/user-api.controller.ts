@@ -4,7 +4,6 @@ import { ApiResponse } from "@src/api/_types/api-response.type";
 import { UserApiCreateUseCase, UserCreateData } from "./usecases/user-api-create.usecase";
 import { UserApiLastCloudDownloadedService } from "./usecases/user-api-last-cloud-downloaded.service";
 import { UserApiUploadAvatarUseCase } from "@src/api/module/user-api/usecases/user-api-upload-avatar.usecase";
-import { UserAvatarCreateUseCase } from "./usecases/user-api-upload-create-avar.usecase";
 
 export class UserApiController {
 	async create(req: Request, res: Response) {
@@ -33,13 +32,6 @@ export class UserApiController {
 		const service = new UserApiUploadAvatarUseCase();
 		const imageBuffer = req.file!.buffer;
 		const data = await service.handler(res.locals["userData"]._id, imageBuffer);
-		apiCreateResponseUtil(data, res);
-	}
-
-	async avatarCreateUpload(req: Request, res: Response) {
-		const service = new UserAvatarCreateUseCase();
-		const imageBuffer = req.file!.buffer;
-		const data = await service.handler(req.body,imageBuffer);
 		apiCreateResponseUtil(data, res);
 	}
 }
