@@ -1,31 +1,59 @@
 import { ApiResponse } from "@src/api/_types/api-response.type";
-import { companyModel } from "@src/models/company.model";
 import { userModel } from "@src/models/user.model";
 import { IWorkReport, workReportModel } from "@src/models/work-report.model";
+import crypto from "crypto";
 
-type WorkReportCreateData = IWorkReport;
+type WorkReportCreateData = Partial<IWorkReport>;
 
 export class WorkReportCreate {
-    async handle(data: WorkReportCreateData): Promise<ApiResponse> {
-        const [user, company] = await Promise.all([
-            userModel.findById(data.userId), 
-            companyModel.findById(data.companyId)      
-        ])
-
+    async handle(id: string, data: WorkReportCreateData): Promise<ApiResponse> {
+        const user = await userModel.findById(id);
         if (!user) {
-            return { message: "User not found.", errors: ["User not found."] };
+            return {
+                data: [],
+                message: "Oops!",
+                errors: ["User not found"],
+            };
         }
 
-        if (!company) {
-            return { message: "Company not found.", errors: ["Company not found."] };
+        const date = new Date().toLocaleDateString("pt-BR");
+
+        const hashKey = crypto.createHash("sha256").update(`${id}-${date}`).digest("hex");
+
+        let workReport = await workReportModel.findOne({ userId: id, hash: hashKey });
+
+        if (workReport) {
+
+            workReport.set(data);
+
+            const updateDocument = await workReport.save();
+
+            if (!updateDocument) {
+                return {
+                    data: [],
+                    message: "Oops!",
+                    errors: ["Falha ao atualizar documento de ponto diário!"],
+                };
+            }
+
+            return {
+                data: [workReport],
+                message: "Documento de ponto diário atualizado!",
+                errors: [],
+            };
         }
 
-        await workReportModel.create({
+        workReport = await workReportModel.create({
             ...data,
-            userName: user.name,
-            companyName: company.name
-        })
+            date,
+            userId: id,
+            hash: hashKey,
+        });
 
-        return { message: "Work report created successfully.", errors: [] };
+        return {
+            data: [workReport],
+            message: "Documento de ponto diário criado!",
+            errors: [],
+        };
     }
 }

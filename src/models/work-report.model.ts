@@ -7,7 +7,9 @@ export interface IReport {
 }
 
 export interface IWorkReport extends IModel {
-  userId: Id;
+  userId?: Id;
+  date?: string;
+  hash?: string;
   startWork: IReport;
   startLunch: IReport;
   endLunch: IReport;
@@ -23,15 +25,17 @@ const reportSchema = new Schema({
     type: String,
     required: false,
   }
-});
+},{ _id: false });
 
 export const workReportModel = model<IWorkReport>("workReportModel", new Schema({
   ...modelKeysDefault,
   userId: {
     type: Schema.Types.ObjectId,
     ref: "user",
-    required: true,
+    required: false,
   },
+  date: { type: String, required: false, },
+  hash: { type: String, required: false },
   startWork: reportSchema,
   endWork: reportSchema,
   startLunch: reportSchema,

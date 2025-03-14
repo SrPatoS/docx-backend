@@ -11,7 +11,7 @@ export const modelKeysDefault = {
   },
   uniqueCode: {
     type: String,
-    required: true,
+    required: false,
     unique: true,
   }
 }

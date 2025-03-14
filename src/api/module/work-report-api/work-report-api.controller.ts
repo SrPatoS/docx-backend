@@ -5,7 +5,7 @@ import { Request, Response } from "express";
 export class WorkReportApiController {
     async create(req: Request, res: Response) {
         const service = new WorkReportCreate();
-        const data = await service.handle(req.body);
+        const data = await service.handle(res.locals["userData"]._id, req.body);
         apiCreateResponseUtil(data, res);
     }
 }

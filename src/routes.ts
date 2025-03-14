@@ -16,7 +16,7 @@ routes.use("/auth", authApiRoutes);
 
 routes.use(authMiddleware);
 routes.use("/user", userApiRoutes);
-routes.use("work-report", workReportApiRoutes);
+routes.use("/work-report", workReportApiRoutes);
 routes.use("/", companyApiRoutes);
 routes.use("/generic-upload", genericUploadRoutes);
 routes.use("/", menuApiRoutes);
