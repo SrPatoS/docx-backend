@@ -1,5 +1,6 @@
 ﻿import { CryptoUtil } from "@src/api/_utils/crypto.util";
 import { workReportModel } from "@src/models/work-report.model";
+import { DateUtil } from "@src/api/_utils/date.util";
 
 export async function getUserWorkReportHashUtil(userId: Id): Promise<string> {
 	const pendingWork = await workReportModel.findOne({
@@ -10,7 +11,7 @@ export async function getUserWorkReportHashUtil(userId: Id): Promise<string> {
 		startWork: true
 	}).exec();
 
-	let dateToCreate = new Date();
+	let dateToCreate = DateUtil.formatToPtBrDate(new Date());
 
 	if (pendingWork) {
 		dateToCreate = pendingWork.startWork.date;

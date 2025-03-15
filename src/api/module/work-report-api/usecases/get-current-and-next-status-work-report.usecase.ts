@@ -11,7 +11,7 @@ export class GetCurrentAndNextStatusWorkReportUseCase {
 		};
 
 		const id = await getUserWorkReportHashUtil(userId);
-
+		
 		const data = <IWorkReport | null>await workReportModel.findOne({
 			hash: id,
 			active: true
