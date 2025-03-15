@@ -6,13 +6,14 @@ import { DateUtil } from "@src/api/_utils/date.util";
 interface ICreateWorkReport {
 	status: WorkStatus;
 	observation: string;
+	date: string;
 }
 
 export class WorkReportCreate {
 	async handle(userId: Id, data: ICreateWorkReport): Promise<ApiResponse> {
-		const id = getUserWorkReportHashUtil(userId);
+		const id = await getUserWorkReportHashUtil(userId);
 
-		const currentDate = DateUtil.formatToPtBrDate(new Date());
+		const currentDate = DateUtil.formatToPtBrDate(new Date(data.date));
 
 		const report = {
 			key: "",
