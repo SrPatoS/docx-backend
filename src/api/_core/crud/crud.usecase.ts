@@ -3,6 +3,7 @@ import { ApiResponse } from "@src/api/_types/api-response.type";
 import { z, ZodError } from "zod";
 import { formatZodErrorUtil } from "@src/api/_utils/format-zod-error.util";
 import { MongoUtils } from "@src/api/_utils/mongo.utils";
+import { DateUtil } from "@src/api/_utils/date.util";
 
 export class CrudUseCase {
 	constructor(
@@ -87,12 +88,21 @@ export class CrudUseCase {
 			message: ""
 		};
 
+		if (!id) {
+			response.errors.push("Id invalido!");
+		}
+
+		if (response.errors.length) {
+			return response;
+		}
+
 		await this.model.updateOne({
 			_id: MongoUtils.convertObjetId(id),
 			active: true
 		}, {
 			$set: {
-				active: false
+				active: false,
+				uniqueCode: `deleted-time: ${DateUtil.getCurrentTimeString()}`
 			}
 		}).exec();
 
@@ -107,6 +117,14 @@ export class CrudUseCase {
 			data: {},
 			message: ""
 		};
+
+		if (!id) {
+			response.errors.push("Id invalido!");
+		}
+
+		if (response.errors.length) {
+			return response;
+		}
 
 		response.data = await this.model.findOne({
 			_id: MongoUtils.convertObjetId(id),

@@ -1,13 +1,17 @@
 meta {
-  name: create
+  name: delete
   type: http
-  seq: 1
+  seq: 3
 }
 
-post {
-  url: http://{{host}}/work-week
+delete {
+  url: http://{{host}}/work-week?id=67d4c21130dd0b4237bafb8c
   body: json
   auth: bearer
+}
+
+params:query {
+  id: 67d4c21130dd0b4237bafb8c
 }
 
 headers {
@@ -20,7 +24,7 @@ auth:bearer {
 
 body:json {
   {
-    "userId": "67d3125bd70ea368c74a86b3",
+    "userId": "67c60e64e7551b3db8233931",
     "title": "Programação 1",
     "dayList": [
       {

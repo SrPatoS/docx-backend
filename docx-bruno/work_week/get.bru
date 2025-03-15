@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: http://{{host}}/week
+  url: http://{{host}}/work-week/get-by-user
   body: none
   auth: bearer
 }
@@ -15,7 +15,7 @@ headers {
 }
 
 auth:bearer {
-  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9ueUBnbWFpbC5jb20iLCJpYXQiOjE3NDE3OTczNjksImV4cCI6MTc0MTg2MjE2OX0.JMdbP0BsLXIJyNS2dpfpFOH3mkFcUkQ5cN3Bhw3a40M
+  token: {{token}}
 }
 
 body:json {

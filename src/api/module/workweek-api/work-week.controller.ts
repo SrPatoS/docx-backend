@@ -6,13 +6,13 @@ import { GetWeekWorkByUserUseCase } from "./usecase/getWeekWorkByUser.usecase";
 import { Request, Response } from "express";
 
 export class WorkWeekController extends CrudController {
-    constructor() {
-        super("work-week", workWeekModel, workWeekSchema);
-    }
+	constructor() {
+		super("work-week", workWeekModel, workWeekSchema);
+	}
 
-    async getWeekWorkByUser(req: Request, res: Response) {
-        const usecase = new GetWeekWorkByUserUseCase();
-        const result = await usecase.handle(res.locals["userData"]._id);
-        apiCreateResponseUtil(result, res);
-    }
-} 
+	async getWeekWorkByUser(req: Request, res: Response) {
+		const useCase = new GetWeekWorkByUserUseCase();
+		const result = await useCase.handle(res.locals["userData"]._id);
+		apiCreateResponseUtil(result, res);
+	}
+}

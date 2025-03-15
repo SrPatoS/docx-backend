@@ -18,4 +18,5 @@ export const modelKeysDefault = {
 
 export interface IModel {
   _id?: Id;
+  uniqueCode?: string;
 }
