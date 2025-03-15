@@ -42,7 +42,7 @@ export class GetUserWeekReportUseCase {
 									$let: {
 										vars: {
 											dayOfWeek: {
-												$dayOfWeek: "$$item.date"
+												$dayOfWeek: "$$item.startWork.date"
 											}
 										},
 										in: {
