@@ -7,15 +7,15 @@ export async function getUserWorkReportHashUtil(userId: Id): Promise<string> {
 		endWork: null,
 		active: true
 	}).select({
-		date: true
+		startWork: true
 	}).exec();
 
 	let dateToCreate = new Date();
 
 	if (pendingWork) {
-		dateToCreate = pendingWork.date;
+		dateToCreate = pendingWork.startWork.date;
 	}
-	
+
 	const date = dateToCreate.toLocaleDateString("pt-BR");
 	return CryptoUtil.createMd5(`${date}-${String(userId)}`);
 }
