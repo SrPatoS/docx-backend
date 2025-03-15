@@ -28,7 +28,7 @@ export class GetWeekWorkByUserUseCase {
 											"Sexta-feira",
 											"Sábado"
 										],
-										"$$day.day"
+										{ $subtract: ["$$day.day", 1] }
 									]
 								},
 								start: {

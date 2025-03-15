@@ -13,3 +13,4 @@ workReportApiRoutes.post("/",
 );
 
 workReportApiRoutes.get("/current-status", controller.getCurrentStatus);
+workReportApiRoutes.get("/week-report", controller.getWeekReport);
