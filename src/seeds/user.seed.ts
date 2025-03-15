@@ -6,6 +6,7 @@ export async function userSeed() {
 		password: "123456789",
 		email: "admin@email.com",
 		rule: "admin",
-		lastCloudDownloaded: new Date()
+		lastCloudDownloaded: new Date(),
+		companyId: ""
 	});
 }
