@@ -1,59 +1,56 @@
 import { ApiResponse } from "@src/api/_types/api-response.type";
-import { userModel } from "@src/models/user.model";
-import { IWorkReport, workReportModel } from "@src/models/work-report.model";
-import crypto from "crypto";
+import { getUserWorkReportHashUtil } from "@src/api/module/work-report-api/utils/get-user-work-report-hash.util";
+import { workReportModel, WorkStatus } from "@src/models/work-report.model";
+import { DateUtil } from "@src/api/_utils/date.util";
 
-type WorkReportCreateData = Partial<IWorkReport>;
+interface ICreateWorkReport {
+	status: WorkStatus;
+	observation: string;
+}
 
 export class WorkReportCreate {
-    async handle(id: string, data: WorkReportCreateData): Promise<ApiResponse> {
-        const user = await userModel.findById(id);
-        if (!user) {
-            return {
-                data: [],
-                message: "Oops!",
-                errors: ["User not found"],
-            };
-        }
+	async handle(userId: Id, data: ICreateWorkReport): Promise<ApiResponse> {
+		const id = getUserWorkReportHashUtil(userId);
 
-        const date = new Date().toLocaleDateString("pt-BR");
+		const currentDate = DateUtil.formatToPtBrDate(new Date());
 
-        const hashKey = crypto.createHash("sha256").update(`${id}-${date}`).digest("hex");
+		const report = {
+			key: "",
+			data: {
+				date: currentDate,
+				observation: data.observation
+			}
+		};
 
-        let workReport = await workReportModel.findOne({ userId: id, hash: hashKey });
+		const statusMap: Record<WorkStatus, string> = {
+			[WorkStatus.WaitingStart]: "waiting",
+			[WorkStatus.Started]: "startWork",
+			[WorkStatus.LunchStarted]: "startLunch",
+			[WorkStatus.LunchFinished]: "endLunch",
+			[WorkStatus.Finished]: "endWork",
+			[WorkStatus.None]: "endWork"
+		};
 
-        if (workReport) {
+		report.key = statusMap[data.status] ?? "";
 
-            workReport.set(data);
+		await workReportModel.updateOne({
+			hash: id
+		}, {
+			$set: {
+				userId: userId,
+				date: currentDate,
+				uniqueCode: id,
+				dateString: DateUtil.getPtBrDateString(currentDate),
+				hash: id,
+				currentStatus: data.status,
+				[report.key]: report.data
+			}
+		}, { upsert: true }).exec();
 
-            const updateDocument = await workReport.save();
-
-            if (!updateDocument) {
-                return {
-                    data: [],
-                    message: "Oops!",
-                    errors: ["Falha ao atualizar documento de ponto diário!"],
-                };
-            }
-
-            return {
-                data: [workReport],
-                message: "Documento de ponto diário atualizado!",
-                errors: [],
-            };
-        }
-
-        workReport = await workReportModel.create({
-            ...data,
-            date,
-            userId: id,
-            hash: hashKey,
-        });
-
-        return {
-            data: [workReport],
-            message: "Documento de ponto diário criado!",
-            errors: [],
-        };
-    }
+		return {
+			data: {},
+			message: "Status Atualizado!",
+			errors: []
+		};
+	}
 }
