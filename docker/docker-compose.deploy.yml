@@ -18,7 +18,7 @@
     restart: always
     container_name: nginx
     ports:
-      - "8080:80"
+      - "2053:80"
     networks:
       - docx-network
     depends_on:
