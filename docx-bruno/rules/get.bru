@@ -1,0 +1,25 @@
+meta {
+  name: get
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://{{host-local}}/rules/all
+  body: none
+  auth: bearer
+}
+
+headers {
+  api-key: {{api-key}}
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9ueUBnbWFpbC5jb20iLCJpYXQiOjE3NDIzMjgyNDgsImV4cCI6MTc0MjM5MzA0OH0.8Rfmdx9wsdn6IoD7poJo_OOcLPRIdTGvPYac-5JYUIg
+}
+
+body:multipart-form {
+  _id: 67b2749ef7b27c1f6947f79d
+  model: user
+  image: @file(C:\Users\anton\Pictures\1.jpg)
+}
