@@ -63,7 +63,7 @@ export const htmlRecoveryPassword = (recoveryCode: string) => {
               <p>Se você não solicitou isso, pode ignorar este e-mail.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2025 DuckEnterprise. Todos os direitos reservados.</p>
+              <p>&copy; 2025 SrPatosEnterprise. Todos os direitos reservados.</p>
             </div>
           </div>
         </body>
