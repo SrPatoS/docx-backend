@@ -23,7 +23,7 @@ export class RabbitmqProvider implements IProvider {
 		}
 		try {
 			this.connection = await amqp.connect({
-				vhost: environment.rabbitmqHost,
+				vhost: environment.rabbitmqVhost,
 				port: environment.rabbitmqPort,
 				username: environment.rabbitmqUser,
 				password: environment.rabbitmqPassword,
