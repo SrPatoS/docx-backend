@@ -24,12 +24,24 @@ export class UserApiCreateUseCase {
       return { message: "error", errors: ['rule not found'] };
     }
 
-    await userModel.create({
+    const user = await userModel.create({
       ...data,
       password: await bcrypt.hash(data.password, environment.bcryptSalt),
       rule: findRule._id
     });
 
-    return { message: "User created successfully.", errors: [] };
+    if (!user) {
+      return { message: "error", errors: ['error creating user'] };
+    }
+
+    await userModel.updateOne({
+      _id: user._id,
+    }, {
+      $set: {
+        uniqueCode: user._id
+      }
+    });
+
+    return { message: "User created successfully.", errors: [], data: user._id };
   }
 }
