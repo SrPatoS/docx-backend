@@ -5,6 +5,7 @@
     "services-up": "docker compose --env-file .env -p docx_services -f docker/docker-compose.services.yml up -d",
     "services-down": "docker compose --env-file .env -p docx_services -f docker/docker-compose.services.yml down",
     "start:deploy:build": "docker compose --env-file .env -p docx_services -f docker/docker-compose.deploy.yml up --build -d",
+    "mongo:up": "docker compose --env-file .env -p docx_services -f docker/docker-compose.mongo.yml up -d",
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "deploy": "npm run services-up && npm run start:deploy:build",
     "check:build": "git pull origin main && npm install && npx tsc -noEmit"
