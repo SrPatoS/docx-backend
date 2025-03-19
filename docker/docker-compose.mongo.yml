@@ -10,6 +10,7 @@
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     ports:
       - "27017:27017"
+    command: --bind_ip_all
     volumes:
       - mongo_data:/data/db
 
