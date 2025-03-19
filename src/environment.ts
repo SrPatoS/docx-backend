@@ -3,6 +3,10 @@
 export const environment = {
 	port: parseInt(process.env.PORT ?? "4000"),
 	host: process.env.HOST ?? "localhost",
+	smtpHost: process.env.SMTP_HOST ?? "",
+	smtpPort: parseInt(process.env.SMTP_PORT ?? "587"),
+	smtpEmail: process.env.SMTP_EMAIL ?? "",
+	smtpPassword: process.env.SMTP_PASSWORD ?? "",
 	apiKey: process.env.API_KEY ?? "",
 	mongoUrl: process.env.MONGO_URL ?? "",
 	mongoDb: process.env.MONGO_DB ?? "",

@@ -9,6 +9,7 @@ import { genericUploadRoutes } from "./api/_core/crud-upload-avatar/generic-uplo
 import { menuApiRoutes } from "@src/api/module/menu-api/menu-api.routes";
 import { workWeekApiRoutes } from "./api/module/workweek-api/work-week.routes";
 import { ruleApiRoutes } from "./api/module/rules-api/rule.routes";
+import { codeEmailApiRoutes } from "./api/module/code-email-api/code.routes";
 
 
 export const routes = Router();
@@ -24,3 +25,4 @@ routes.use("/", companyApiRoutes);
 routes.use("/generic-upload", genericUploadRoutes);
 routes.use("/", menuApiRoutes);
 routes.use("/", workWeekApiRoutes);
+routes.use("/code", codeEmailApiRoutes);

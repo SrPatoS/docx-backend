@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: http://{{host}}/user
+  url: http://{{host-local}}/user
   body: json
   auth: bearer
 }
@@ -15,16 +15,15 @@ headers {
 }
 
 auth:bearer {
-  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGVtYWlsLmNvbSIsImlhdCI6MTc0MTg4NTM5OSwiZXhwIjoxNzQxOTUwMTk5fQ.-iTiTW4gQn0lmug__OCyXHQlkxhvWZTmLtEa-31AZMQ
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9ueUBnbWFpbC5jb20iLCJpYXQiOjE3NDIzMzc2MzMsImV4cCI6MTc0MjQwMjQzM30.HePARhjNlLUXIHGq6O8RPGzBhXAlFxD9MZUDsJVik48
 }
 
 body:json {
   {
     "name":"Antony Souza",
-    "email": "antony@gmail.com",
+    "email": "antony12@gmail.com",
     "password": "antony123",
     "companyId":"67c8651c7241bea29657b79d",
-    "rule":"admin",
-    "uniqueCode": "2"
+    "rule":"admin"
   }
 }

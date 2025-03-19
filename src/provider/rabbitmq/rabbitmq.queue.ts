@@ -3,4 +3,4 @@
 	handler: (data: any) => void | Promise<void>;
 }
 
-export type QueueName = "user-avatar" | "user-create-avatar" | "generic-avatar-upload-queue";
+export type QueueName = "user-avatar" | "generic-avatar-upload-queue" | "send-code-email";
