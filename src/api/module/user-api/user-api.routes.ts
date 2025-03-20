@@ -9,6 +9,7 @@ const controller = new UserApiController();
 const controllerTest = new UpdateUserApiController();
 
 export const userApiRoutes = Router();
+export const userApiRoutesNoAuth = Router();
 
 userApiRoutes.post("/",
 	validationBodyMiddleware(userApiSchema),
@@ -18,4 +19,5 @@ userApiRoutes.post("/",
 userApiRoutes.get("/", controller.read);
 userApiRoutes.post("/last-cloud-downloaded", controller.getLastCloudDownloaded);
 userApiRoutes.put("/", controllerTest.getRouter());
+userApiRoutesNoAuth.put("/update-password-with-recovery-code", controller.updatePasswordWithRecoveryCode);
 userApiRoutes.post("/avatar/upload", multerUpload.single("image"), controller.avatarUpload);

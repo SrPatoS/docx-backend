@@ -3,10 +3,16 @@ import { codeEmailModule } from "@src/models/code-email.model";
 import { NodemailerProvider } from "@src/provider/nodemailer/nodemailer";
 import { QueueName, RabbitmqQueue } from "@src/provider/rabbitmq/rabbitmq.queue";
 
-export class SendCodeToEmailQueue implements RabbitmqQueue {
+interface IRecoveryPasswordSendCodeEmail {
+    email: string;
+    code: string;
+    html: string;
+}
+
+export class SendRecoveryCodeToEmailQueue implements RabbitmqQueue {
     name: QueueName = "send-code-email";
 
-    async handler(data: any) {
+    async handler(data: IRecoveryPasswordSendCodeEmail) {
         const { email, code, html } = data;
 
         await codeEmailModule.create({

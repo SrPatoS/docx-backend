@@ -2,13 +2,14 @@ import { model, Schema } from "mongoose";
 import { IModel, modelConfig, modelKeysDefault } from "./utils/model.utils";
 
 export interface ICodeEmail extends IModel {
-	email: string;
+    userId: Id;
+    email: string;
     code: string;
     expiration: Date;
 }
 
 export const codeEmailModule = model<ICodeEmail>("code", new Schema({
-	...modelKeysDefault,
+    ...modelKeysDefault,
     email: {
         type: String,
         required: true
@@ -22,5 +23,5 @@ export const codeEmailModule = model<ICodeEmail>("code", new Schema({
         required: false,
         default: new Date(new Date().getTime() + 1000 * 60 * 10)
     }
-	
+
 }, modelConfig), "codes-email");
