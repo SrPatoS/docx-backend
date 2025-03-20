@@ -15,7 +15,7 @@ export class EndUserWorkEmail extends EmailParser {
 			<html>
 			<head>
 				<meta charSet="UTF-8" />
-				<title>Seu relatório semanal</title>
+				<title>Relatório semanal</title>
 				<style>
 					{`
 							body {
@@ -49,7 +49,7 @@ export class EndUserWorkEmail extends EmailParser {
 			</head>
 			<body>
 			<div className="container">
-				<h2>Horários de Trabalho</h2>
+				<h2>Seu relatório semanal</h2>
 				<p>Aqui estão seus horários registrados:</p>
 				<table>
 					<thead>
