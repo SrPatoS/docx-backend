@@ -16,6 +16,7 @@ export const routes = Router();
 
 routes.use(apiMiddleware);
 routes.use("/auth", authApiRoutes);
+routes.use("/code", codeEmailApiRoutes);
 routes.use("/", userApiRoutesNoAuth)
 
 routes.use(authMiddleware);
@@ -26,4 +27,3 @@ routes.use("/", companyApiRoutes);
 routes.use("/generic-upload", genericUploadRoutes);
 routes.use("/", menuApiRoutes);
 routes.use("/", workWeekApiRoutes);
-routes.use("/code", codeEmailApiRoutes);

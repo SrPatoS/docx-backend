@@ -43,6 +43,6 @@ export class UserRecoveryPasswordUseCase {
 
         await codeEmailModule.updateOne({ code: dto.code }, { active: false }).exec();
 
-        return { message: "success", errors: [], data: '' };
+        return { message: "Senha atualizada com sucesso!", errors: [], data: '' };
     }
 }

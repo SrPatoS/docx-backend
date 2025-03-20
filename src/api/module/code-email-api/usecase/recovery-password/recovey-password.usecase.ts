@@ -4,7 +4,7 @@ import { randomCode } from "@src/api/_utils/random-code.util";
 import { RabbitmqService } from "@src/provider/rabbitmq/rabbitmq.service";
 import { ApiResponse } from "@src/api/_types/api-response.type";
 
-type RecoveryPasswordData = ICodeEmail;
+type RecoveryPasswordData = Partial<ICodeEmail>;
 
 export class RecoveryPasswordUseCase {
 

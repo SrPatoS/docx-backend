@@ -21,7 +21,7 @@ export const codeEmailModule = model<ICodeEmail>("code", new Schema({
     expiration: {
         type: Date,
         required: false,
-        default: new Date(new Date().getTime() + 1000 * 60 * 10)
+        default: new Date(new Date().getTime() + 1000 * 60 * 12)
     }
 
 }, modelConfig), "codes-email");
