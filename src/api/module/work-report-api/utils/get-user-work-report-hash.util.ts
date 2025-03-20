@@ -13,7 +13,7 @@ export async function getUserWorkReportHashUtil(userId: Id): Promise<string> {
 
 	let dateToCreate = DateUtil.formatToPtBrDate(new Date());
 
-	if (pendingWork) {
+	if (pendingWork && pendingWork.startWork) {
 		dateToCreate = pendingWork.startWork.date;
 	}
 

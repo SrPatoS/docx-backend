@@ -2,6 +2,7 @@ import { ApiResponse } from "@src/api/_types/api-response.type";
 import { getUserWorkReportHashUtil } from "@src/api/module/work-report-api/utils/get-user-work-report-hash.util";
 import { workReportModel, WorkStatus } from "@src/models/work-report.model";
 import { DateUtil } from "@src/api/_utils/date.util";
+import { SendEndUserWorkEmailUseCase } from "@src/api/module/work-report-api/usecases/send-end-user-work-email.usecase";
 
 interface ICreateWorkReport {
 	status: WorkStatus;
@@ -12,6 +13,7 @@ interface ICreateWorkReport {
 export class WorkReportCreate {
 	async handle(userId: Id, data: ICreateWorkReport): Promise<ApiResponse> {
 		const id = await getUserWorkReportHashUtil(userId);
+		const sendEndUserWorkEmailUseCase = new SendEndUserWorkEmailUseCase();
 
 		const currentDate = DateUtil.formatToPtBrDate(new Date(data.date));
 
@@ -47,6 +49,10 @@ export class WorkReportCreate {
 				[report.key]: report.data
 			}
 		}, { upsert: true }).exec();
+
+		if(report.key === "endWork") {
+			await sendEndUserWorkEmailUseCase.handler(userId);
+		}
 
 		return {
 			data: {},

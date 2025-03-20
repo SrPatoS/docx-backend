@@ -20,7 +20,8 @@
     "allowJs": true,
     "rootDir": "./src",
     "sourceMap": true,
-    "moduleResolution": "node16"
+    "moduleResolution": "node16",
+    "jsx": "react"
   },
   "include": [
     "./src/**/*",
