@@ -1,0 +1,27 @@
+meta {
+  name: create
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://{{host}}/menu
+  body: json
+  auth: bearer
+}
+
+headers {
+  api-key: {{api-key}}
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "name":"SrPatosEnterprise",
+    "cnpj":"12.345.678/0001-90",
+    "uniqueCode": "330"
+  }
+}

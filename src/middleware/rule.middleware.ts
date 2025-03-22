@@ -44,6 +44,6 @@ export const ruleMiddleware = (ruleTags: Rule[]) => {
 			return next();
 		}
 
-		return res.status(403).send({ message: "Forbidden" });
+		return res.status(403).send({ message: "Recurso não Habilitado para seu usuário!" });
 	};
 };

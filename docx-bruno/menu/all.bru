@@ -1,0 +1,27 @@
+meta {
+  name: all
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://{{host-local}}/company/all
+  body: none
+  auth: bearer
+}
+
+headers {
+  api-key: {{api-key}}
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9ueUBnbWFpbC5jb20iLCJpYXQiOjE3NDIzMDQ3MDQsImV4cCI6MTc0MjM2OTUwNH0.Wi2xWEDIg2wFAxBoALvSenGUUMIYEvyFNDfpQCoKOoQ
+}
+
+body:json {
+  {
+    "name":"SrPatosEnterpris 1111e",
+    "cnpj":"12.345.678/0001-901111",
+    "uniqueCode": "330"
+  }
+}
