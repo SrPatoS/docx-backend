@@ -5,5 +5,7 @@ export const menuApiSchema = z.object({
 	path: z.string(),
 	icon: z.string().optional(),
 	order: z.number(),
-	rules: z.array(z.string())
+	rules: z.array(z.string()),
+	tool: z.boolean(),
+	uniqueCode: z.string(),
 });

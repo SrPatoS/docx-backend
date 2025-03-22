@@ -6,3 +6,5 @@ const controller = new MenuApiController();
 export const menuApiRoutes = controller.getRouter([
 	ruleMiddleware(["admin"])
 ]);
+
+menuApiRoutes.get("/menu/read-menus", controller.getMenus);

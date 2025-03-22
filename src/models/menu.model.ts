@@ -7,6 +7,7 @@ export interface IMenu extends IModel {
 	icon?: string;
 	rules: Id[];
 	order: number;
+	tool: boolean;
 }
 
 export const menuModel = model<IMenu>("menu", new Schema({
@@ -31,6 +32,10 @@ export const menuModel = model<IMenu>("menu", new Schema({
 	},
 	order: {
 		type: Number,
+		required: true
+	},
+	tool: {
+		type: Boolean,
 		required: true
 	}
 }, modelConfig), "menus");
