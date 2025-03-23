@@ -2,7 +2,6 @@ import { CrudController } from "@src/api/_core/crud/crud.controller";
 import { companyModel } from "@src/models/company.model";
 import { companyApiSchema } from "@src/api/module/company-api/company-api.schema";
 import { Request, Response } from "express";
-import { CompanyAvatarQueueCallback } from "@src/api/module/company-api/callback/company-avatar-queue.callback";
 import { RabbitmqService } from "@src/provider/rabbitmq/rabbitmq.service";
 import { apiCreateResponseUtil } from "@src/api/_utils/api-create-response.util";
 
@@ -16,7 +15,6 @@ export class CompanyApiController extends CrudController {
 	}
 
 	async uploadAvatar(req: Request, res: Response) {
-		const companyAvatarQueueCallback = new CompanyAvatarQueueCallback();
 		const rabbitmqService = new RabbitmqService();
 		const imageBuffer = req.file!.buffer;
 
