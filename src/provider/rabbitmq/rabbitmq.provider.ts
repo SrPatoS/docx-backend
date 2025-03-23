@@ -8,6 +8,7 @@ export class RabbitmqProvider implements IProvider {
 	public static Instance: RabbitmqProvider;
 
 	name = "rabbitmq";
+	enabled = true;
 	private connection!: ChannelModel;
 	private channel!: Channel;
 

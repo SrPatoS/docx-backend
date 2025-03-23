@@ -1,0 +1,33 @@
+meta {
+  name: avatar
+  type: http
+  seq: 8
+}
+
+post {
+  url: http://{{host}}/company/avatar?companyId=67df4a4d974dbd91279a4e24
+  body: multipartForm
+  auth: bearer
+}
+
+params:query {
+  companyId: 67df4a4d974dbd91279a4e24
+}
+
+headers {
+  api-key: {{api-key}}
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "companyId":"SrPatosEnterprise"
+  }
+}
+
+body:multipart-form {
+  image: @file(C:\Users\Vinicius\Desktop\Screenshot_1.png)
+}

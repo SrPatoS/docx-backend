@@ -1,4 +1,5 @@
 ﻿export interface IProvider {
 	name: string;
 	awake: () => void | Promise<void>;
+	enabled: boolean;
 }

@@ -21,4 +21,6 @@ export const environment = {
 	enabledRabbitQueueConsume: process.env.ENABLE_QUEUE_CONSUME === "true",
 	uploadServiceType: process.env.UPLOAD_SERVICE_TYPE ?? "IMGUR",
 	rabbitmqVhost: process.env.RABBITMQ_VHOST ?? "",
+	storageBucketName: process.env.STORAGE_BUCKET_NAME ?? "",
+	enabledGcloudStorage: process.env.ENABLE_GCLOUD_STORAGE === "true",
 };

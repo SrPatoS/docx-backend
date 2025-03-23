@@ -3,10 +3,14 @@ import { UserAvatarUploadQueue } from "@src/queue/module/user/user-avatar-upload
 import { GenericAvatarUploadQueue } from "./module/generic/generic-avatar-upload.queue";
 import { SendRecoveryCodeToEmailQueue } from "./module/code-email/recovery-password/send-recovery-code";
 import { SendMailQueue } from "@src/queue/module/send-mail/send-mail.queue";
+import { FileUploadQueue } from "@src/queue/module/file-upload/file-upload.queue";
+import { CompanyUpdateAvatarCallbackQueue } from "@src/queue/module/file-upload/company-update-avatar-callback.queue";
 
 export const queueList: RabbitmqQueue[] = [
 	new UserAvatarUploadQueue(),
 	new GenericAvatarUploadQueue(),
 	new SendRecoveryCodeToEmailQueue(),
-	new SendMailQueue()
+	new SendMailQueue(),
+	new FileUploadQueue(),
+	new CompanyUpdateAvatarCallbackQueue()
 ];

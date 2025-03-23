@@ -15,6 +15,7 @@
   },
   "main": "dist/bootstrap.js",
   "dependencies": {
+    "@google-cloud/storage": "^7.15.2",
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.8",
