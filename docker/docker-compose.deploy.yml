@@ -6,7 +6,7 @@
       context: ..
       dockerfile: Dockerfile
     ports:
-      - 80:3000
+      - 3000:3000
     networks:
       - docx-network
 
@@ -18,7 +18,7 @@
     restart: always
     container_name: nginx
     ports:
-      - "2053:80"
+      - "80:80"
     networks:
       - docx-network
     depends_on:
