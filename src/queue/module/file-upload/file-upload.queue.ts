@@ -12,9 +12,9 @@ export class FileUploadQueue implements RabbitmqQueue {
 
 		if (data.callBackQueue) {
 			const rabbitmqService = new RabbitmqService();
-			await rabbitmqService.sendToQueue("company-avatar-callback", {
+			await rabbitmqService.sendToQueue(data.callBackQueue, {
 				url: result,
-				companyId: data.companyId
+				other: data.companyId
 			});
 		}
 	}

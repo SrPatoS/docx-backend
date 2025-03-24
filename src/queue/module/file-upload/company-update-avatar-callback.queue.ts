@@ -7,10 +7,10 @@ export class CompanyUpdateAvatarCallbackQueue implements RabbitmqQueue {
 
 	async handler(data: {
 		url: string;
-		companyId: string;
+		other: string;
 	}) {
 		await companyModel.updateOne({
-			_id: MongoUtils.convertObjetId(data.companyId)
+			_id: MongoUtils.convertObjetId(data.other)
 		}, {
 			$set: {
 				avatar: data.url
